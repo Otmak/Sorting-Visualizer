@@ -5,3 +5,286 @@ body{
 	align-items: center;
 	
 }
+
+h1{
+	font-family: Courier New, monospace;
+}
+
+#all-buttons{
+	display: flex;
+	flex-direction: row;
+	width: 85%;
+	justify-content: space-evenly;
+	align-items: flex-end;
+	gap: 30px;
+
+}
+
+/*INIT BUTTON*/
+.button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  background-color: #e0e8ef;
+  color: #e0e8ef;
+  font-size: 13px;
+  border: 0.5px solid rgba(0, 0, 0, 0.1);
+  padding-bottom: 8px;
+  margin: 10px;
+  padding: 12px;
+  border-radius: 15px 15px 12px 12px;
+  cursor: pointer;
+  position: relative;
+  will-change: transform;
+  transition: all .1s ease-in-out 0s;
+  user-select: none;
+  /* Add gradient shading to each side */
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0)),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+  background-position: bottom right, bottom right;
+  background-size: 100% 100%, 100% 100%;
+  background-repeat: no-repeat;
+  box-shadow: inset -4px -10px 0px rgba(255, 255, 255, 0.4),
+    inset -4px -8px 0px rgba(0, 0, 0, 0.3),
+    0px 2px 1px rgba(0, 0, 0, 0.3),
+    0px 2px 1px rgba(255, 255, 255, 0.1);
+  transform: perspective(70px) rotateX(5deg) rotateY(0deg);
+}
+
+.button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.5));
+  z-index: -1;
+  border-radius: 15px;
+  box-shadow: inset 4px 0px 0px rgba(255, 255, 255, 0.1),
+    inset 4px -8px 0px rgba(0, 0, 0, 0.3);
+  transition: all .1s ease-in-out 0s;
+}
+
+.button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0)),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+  background-position: bottom right, bottom right;
+  background-size: 100% 100%, 100% 100%;
+  background-repeat: no-repeat;
+  z-index: -1;
+  border-radius: 15px;
+  transition: all .1s ease-in-out 0s;
+}
+
+.button:active {
+  will-change: transform;
+  transform: perspective(80px) rotateX(5deg) rotateY(1deg) translateY(3px) scale(0.96);
+/*  height: 64px;*/
+  border: 0.25px solid rgba(0, 0, 0, 0.2);
+  box-shadow: inset -4px -8px 0px rgba(255, 255, 255, 0.2),
+    inset -4px -6px 0px rgba(0, 0, 0, 0.8),
+    0px 1px 0px rgba(0, 0, 0, 0.9),
+    0px 1px 0px rgba(255, 255, 255, 0.2);
+  transition: all .1s ease-in-out 0s;
+}
+
+
+
+.button:active::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 5%;
+  left: 20%;
+  width: 50%;
+  height: 80%;
+
+  animation: overlay 0.1s ease-in-out 0s;
+  pointer-events: none;
+}
+
+
+
+
+/*PLAY BUTTON */
+.btn-play {
+  --primary: 255, 90, 120;
+  --secondary: 150, 50, 60;
+  right: 0;
+  width: 60px;
+  height: 50px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+  outline: 10px solid rgb(var(--primary), .5);
+  border-radius: 100%;
+  position: relative;
+  transition: .3s;
+}
+
+.btn-play .back {
+  background: rgb(var(--secondary));
+  border-radius: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.btn-play .front {
+  background: linear-gradient(0deg, rgba(var(--primary), .6) 20%, rgba(var(--primary)) 50%);
+  box-shadow: 0 .5em 1em -0.2em rgba(var(--secondary), .5);
+  border-radius: 100%;
+  position: absolute;
+  border: 1px solid rgb(var(--secondary));
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  font-family: inherit;
+  transform: translateY(-15%);
+  transition: .15s;
+  color: rgb(var(--secondary));
+}
+
+.btn-play:active .front {
+  transform: translateY(0%);
+  box-shadow: 0 0;
+}
+
+/*ALGORITHM BUTTONS*/
+.radio-inputs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 350px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.radio-inputs > * {
+  margin: 6px;
+}
+
+.radio-input:checked + .radio-tile {
+  border-color: #2260ff;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  color: #2260ff;
+}
+
+.radio-input:checked + .radio-tile:before {
+  transform: scale(1);
+  opacity: 1;
+  background-color: #2260ff;
+  border-color: #2260ff;
+}
+
+.radio-input:checked + .radio-tile .radio-icon svg {
+  fill: #2260ff;
+}
+
+.radio-input:checked + .radio-tile .radio-label {
+  color: #2260ff;
+}
+
+.radio-input:focus + .radio-tile {
+  border-color: #2260ff;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1), 0 0 0 4px #b5c9fc;
+}
+
+.radio-input:focus + .radio-tile:before {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.radio-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  min-height: 80px;
+  border-radius: 0.5rem;
+  border: 2px solid #b5bfd9;
+  background-color: #fff;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  transition: 0.15s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.radio-tile:before {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 0.75rem;
+  height: 0.75rem;
+  border: 2px solid #b5bfd9;
+  background-color: #fff;
+  border-radius: 50%;
+  top: 0.25rem;
+  left: 0.25rem;
+  opacity: 0;
+  transform: scale(0);
+  transition: 0.25s ease;
+}
+
+.radio-tile:hover {
+  border-color: #2260ff;
+}
+
+/*.disallowed:hover:{
+	cursor: not-allowed;
+}*/
+
+/*.radio-tile:hover:before span.disallowed {
+  transform: scale(1);
+  opacity: 1;
+}*/
+
+span.disallowed{
+	cursor: not-allowed;
+}
+
+.radio-icon svg {
+  width: 2rem;
+  height: 2rem;
+  fill: #494949;
+}
+
+.radio-label {
+  color: #707070;
+  transition: 0.375s ease;
+  text-align: center;
+  font-size: 13px;
+  font-family: Courier New, monospace;
+}
+
+.radio-input {
+  clip: rect(0 0 0 0);
+  -webkit-clip-path: inset(100%);
+  clip-path: inset(100%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
