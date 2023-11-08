@@ -7,14 +7,14 @@
 	<title> Sorting Algorithm visualizer </title>
 </head>
 <body>
-	<h1> Sorting Algorithm visualization </h1>
+	<h1> Sorting Algorithm visualizer </h1>
 	<canvas id="mainCanvas"></canvas>
 	<br>
 
 	<div id="all-buttons">
 		<div>
 			<button class="button" onclick="initiateArray()">	
-			  <svg stroke="#ffffff" xml:space="preserve" viewBox="0 0 80 80" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" id="Capa_1" version="1.1" fill="#ffffff"><g stroke-width="0" id="SVGRepo_bgCarrier"></g><g stroke-linejoin="round" stroke-linecap="round" id="SVGRepo_tracerCarrier"></g><g id="SVGRepo_iconCarrier"> <g>  </g> </g></svg>
+			  <svg stroke="#ffffff" xml:space="preserve" viewBox="0 0 80 80" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" id="Capa_1" version="1.1" fill="#ffffff"><g stroke-width="0" id="SVGRepo_bgCarrier"></g><g stroke-linejoin="round" stroke-linecap="round" id="SVGRepo_tracerCarrier"></g><g id="SVGRepo_iconCarrier"> </g></svg>
 			  New Array
 			</button>
 		</div>
@@ -38,25 +38,31 @@
 				</span>
 			</label>
 			<label >
-				<input class="radio-input" type="radio" name="engine" disabled>
-				<span class="radio-tile radio-label disallowed">
+				<input class="radio-input" type="radio" name="engine">
+				<span class="radio-tile radio-label" id="d">
 					Quick Sort
 				</span>
 			</label>
-			<label disabled>
-				<input class="radio-input " type="radio" name="engine" disabled>
-				<span class="radio-tile radio-label disallowed">
+			<label>
+				<input class="radio-input " type="radio" name="engine">
+				<span class="radio-tile radio-label" id="e">
 					Heap Sort
 				</span>
 			</label>
 		</div>
 		<div>
-			<button onclick="begin()" class="btn-play">
+			<button onclick="runAlgorithm()" class="btn-play">
 			<span class="back"></span>
   			<span class="front"></span>
   			</button>
   		</div>
 	</div>
+	<hr>
+	<hr>
+	<div class="slider">
+		Array size
+ 		<input id="rangeNumber" type="range" min="5" max="200" value="15" oninput="addColumnsToArray()"><p id="rangeValue">15</p>
+  	</div> 
 
 	<script type="text/javascript" src="column.js"></script>
 	<script type="text/javascript" src="main.js"></script>

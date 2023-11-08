@@ -1,5 +1,4 @@
-console.log('column online')
-
+// By Otuma.
 class Column{
 	constructor(x,y,width,height){
 		this.x = x;
@@ -7,31 +6,38 @@ class Column{
 		this.width = width;
 		this.height = height;
 		this.queue = [];
-
 	}
 
-	moveTo(location, framecount=5 ){ //assign the moving values to queue
+	moveTo(location, framecount=5 ){
 		for(let i=0; i<=framecount; i++){
 			const t = i/framecount;
+			// const u = 
 			this.queue.push({
-				x:lInterpolate(this.x, location.x, t),
-				y:lInterpolate(this.y, location.y, t)
+				x:linearInterpolate(this.x, location.x, t),
+				y:linearInterpolate(this.y, location.y, t)
 			})
 		}
 	}
 
-	draw(ctx){
+	// jump(framecount=10){
+	// 	for(let i=1; i< framecount; i++){
+	// 		const t = i/framecount;
+	// 		const u = Math.sin(t*Math.PI);
+	// 		this.queue.push({
+	// 			x:this.x,
+	// 			y:this.y-u*this.width
+	// 		})
+	// 	}
+	// }
 
+	draw(ctx){
 		let processing = false;
 		if( this.queue.length > 0 ){
-	
 			const {x,y} = this.queue.shift();
 			this.x = x;
 			this.y = y;
 			processing = true;
-			
 		}
-		// console.log(ctx, 'LOGGING')
 		const left = this.x - this.width/2;
 		const top = this.y - this.height;
 		const right = this.x + this.width/2
@@ -48,7 +54,6 @@ class Column{
 
 		ctx.fill();
 		ctx.stroke();
-
 		return processing;
 	}
 }

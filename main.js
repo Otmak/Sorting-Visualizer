@@ -1,27 +1,26 @@
-//
-
-mainCanvas.width = 500;
+//By Otuma.
+mainCanvas.width = 900;
 mainCanvas.height = 400;
 const selectedBtn = document.getElementById('algorithms');
+let numberOfColumsValue = document.getElementById('rangeNumber').value;
 
-const num = 14;
-const arr = [];
-const obj = {};
+let numberOfColums = numberOfColumsValue;
+let arr = [];
+let obj = {};
 const margin = 30;
 
 let cols = [];
-const spacing = (mainCanvas.width - margin*2)/num;
+let spacing = (mainCanvas.width - margin*2)/numberOfColums;
 const ctx = mainCanvas.getContext('2d');
 let operations = [];
-let theChosenOne = '';
+let chosenAlgorithm = '';
 
 
 // Create array of random numbers between 0 and 1.
 initiateArray();
-
 function initiateArray(){
 
-	for(let i=0; i<num; i++){
+	for(let i=0; i<numberOfColums; i++){
 		const randomNum =  Math.random()
 		arr[i] = randomNum;
 		obj[randomNum] = i;
@@ -30,28 +29,44 @@ function initiateArray(){
 	requestAnimationFrame(animate);
 };
 
-function paint(){
+
+function addColumnsToArray(){
+	console.log('Loggin dail...', 'spacing:', spacing)
+	let text = document.getElementById('rangeValue');
+	let newNumberOfColums = document.getElementById('rangeNumber').value;
+	text.innerHTML = newNumberOfColums;
+	numberOfColums = Number(newNumberOfColums);
+	cols = [];
+	arr = [];
+	obj = [];
+	console.log(arr, cols, numberOfColums, spacing);
+	spacing = (mainCanvas.width - margin*2)/numberOfColums;
+	initiateArray();
+	// console.log(arr, cols, numberOfColums, spacing)
+}
+
+
+function paint(){//generateColumns
 	operations = [];
 	for(let i=0; i<arr.length; i++){
 		const x = i*spacing+spacing/2 + margin;
 		const y = mainCanvas.height - margin;
 		const width = spacing -4;
 		const height = (mainCanvas.height - margin*2)*arr[i];
-		cols[i] = new Column(x,y,width,height);// Create colums
+		cols[i] = new Column(x,y,width,height);
 	}
 }
 
 
 const selectAgorithm = (arg, i) =>{
-	const dup = [...arg];
+	const array = [...arg];
 	const object = {
-		a: bubbleSort(dup),
-		b: insertionSort(dup),
-		c: mergeSort(dup),
+		a: bubbleSort(array),
+		b: insertionSort(array),
+		c: mergeSort(array),
+		d: quickSort(array),
+		e: heapSort(array)
 	}
-		// 	c: mergeSort(arg),
-		// d: heapSort(arg),
-		// e: quickSort(arg)
 	return object[i];
 }
 
@@ -59,23 +74,22 @@ const selectAgorithm = (arg, i) =>{
 selectedBtn.addEventListener('click', (e)=>{
 	if(e.target.nodeName === 'SPAN'){
 		paint();
-		theChosenOne = e.target.id;
+		chosenAlgorithm = e.target.id;
 	}
 })
 
 
 // Run the Algorithm.
-function begin(){
+function runAlgorithm(){//runAlgorithm
 	operations = [];
-	operations = selectAgorithm(arr, theChosenOne)
+	operations = selectAgorithm(arr, chosenAlgorithm)
 	requestAnimationFrame(animate);
-	// animate();
 }
 
 // TEST copy array.
 // const test_Array = [...arr];
 //linear interpolation
-function lInterpolate(a, b, t){
+function linearInterpolate(a, b, t){
 	return a + (b - a) * t;
 }
 
@@ -83,14 +97,12 @@ function lInterpolate(a, b, t){
 animate();
 function animate(){
 	let counter = 0;
-
 	ctx.clearRect(0,0, mainCanvas.width, mainCanvas.height);
 	let processing = false;
 	for( let i=0; i<cols.length; i++ ){
 		processing = cols[i].draw(ctx) || processing;
 		counter++
 	}
-
 	// if undifined or something give an alert;
 	if( !processing && operations.length >0 ){
 		const action = operations.shift();
@@ -154,17 +166,17 @@ function insertionSort(arg){
 
 // MERGE SORT.
 function mergeSort(arg){
-	const array = [...arg];
+	const mainArray = [...arg];
 	let actions = [];
 
 	//DIVIDE AND SORT
-	function divide(parameter){
-		if(parameter.length === 1){
-			return parameter
+	function divide(array){
+		if(array.length === 1){
+			return array
 		};
-		let middle = Math.floor(parameter.length/2);
-		let left = divide(parameter.slice(0, middle));
-		let right = divide(parameter.slice(middle));
+		let middle = Math.floor(array.length/2);
+		let left = divide(array.slice(0, middle));
+		let right = divide(array.slice(middle));
 		let merged = merge(left, right);
 
 		return merged;
@@ -174,7 +186,6 @@ function mergeSort(arg){
 	function merge (array1, array2) {
 		let merged = [];
 		let i = 0, j = 0;
-
 		while (i <array1.length && j <array2.length) {
 			if (array1[i] < array2[j]){
 				merged.push(array1[i]);
@@ -195,20 +206,86 @@ function mergeSort(arg){
 		};
 		return merged;
 	};
-	divide(array);
+	divide(mainArray);
 	return actions;
 
 };
 
 
 // QUICK SORT.
-function quickSort(arg){};
+function quickSort(arg){
+	const mainArray = [...arg];
+	let actions = [];
+
+	function sort(array, left=0, right=array.length-1){
+		let pivotIndex = pivot(array, left, right);
+		if(left < right){
+			sort(array, left, pivotIndex-1);
+			sort(array, pivotIndex+1, right);
+		}
+		return array;
+	};
+
+	function pivot(array, pivotIndex=0, endIndex=array.length-1){
+	  let swapIndex = pivotIndex;
+	  for (let i = pivotIndex +1; i<= endIndex; i++) {
+	    if(array[i] < array[pivotIndex]) {
+	      swapIndex++;
+	      [array[i], array[swapIndex]] = [array[swapIndex], array[i]];
+	      actions.push({index:[i, swapIndex] ,swap:true});
+	    }else{
+	    	actions.push({index:[i, swapIndex] ,swap:false});
+	    }
+	  }
+	  [array[pivotIndex], array[swapIndex]] = [array[swapIndex], array[pivotIndex]];
+	  actions.push({index:[pivotIndex, swapIndex] ,swap:true});
+	  return swapIndex;
+	};
+	sort(mainArray);
+	return actions;
+};
+
 
 // HEAP SORT.
-function heapSort(arg){};
+function heapSort(arg){
+	console.log('running HEAP SORT')
+	const mainArray = [...arg];
+	let actions = [];
+	function sort(array){
+		let heapSize = array.length;
+		// Build heap
+		for(let i = Math.floor(heapSize/2) -1; i>=0; i--){
+			maxHeap(array, heapSize, i);
+		};
+	  // Swap max element with last element
+		for(let i = heapSize -1; i >0; i--){
+			[array[0], array[i]] = [array[i], array[0]];
+			actions.push({index:[0, i], swap:true})
+			maxHeap(array, i, 0);
+		};
+	};
 
-// COUNTING SORT.
-function countingSort(arg){};
+	function maxHeap(array, heapSize, i){
+		let left = 2*i +1;
+		let right = 2*i +2;
+		let maxElement = i;
+		if(left < heapSize && array[left] > array[maxElement]){
+			maxElement = left;
+		}
+		if(right < heapSize && array[right] > array[maxElement]){
+			maxElement = right;
+		}
+		if(maxElement != i){
+			[array[i], array[maxElement]] = [array[maxElement], array[i]];
+			actions.push({index: [i, maxElement], swap:true});
+			maxHeap(array, heapSize, maxElement);
+		}else{
+			actions.push({index:[i, maxElement], swap:false})
+		}
+	}
+	sort(mainArray);
+	return actions;
 
-// RADIX SORT
-function radixSort(arg){};
+};
+
+
