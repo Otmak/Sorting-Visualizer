@@ -86,8 +86,7 @@ function runAlgorithm(){//runAlgorithm
 	requestAnimationFrame(animate);
 }
 
-// TEST copy array.
-// const test_Array = [...arr];
+
 //linear interpolation
 function linearInterpolate(a, b, t){
 	return a + (b - a) * t;
@@ -248,7 +247,6 @@ function quickSort(arg){
 
 // HEAP SORT.
 function heapSort(arg){
-	console.log('running HEAP SORT')
 	const mainArray = [...arg];
 	let actions = [];
 	function sort(array){
