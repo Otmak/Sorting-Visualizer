@@ -6,7 +6,7 @@
 ***2. Insertion Sort.*** \
 ***3. Merge Sort.*** \
 ***4. Quick Sort.*** \
-***5. Heap Sort.*** \
+***5. Heap Sort.*** 
 
 Click [ Here For The Live](https://otmak.github.io/Sorting-Visualizer/) application.
 
