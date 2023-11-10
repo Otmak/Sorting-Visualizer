@@ -14,12 +14,12 @@ let spacing = (mainCanvas.width - margin*2)/numberOfColums;
 const ctx = mainCanvas.getContext('2d');
 let operations = [];
 let chosenAlgorithm = '';
+let isOkayToRun = false;
 
 
 // Create array of random numbers between 0 and 1.
 initiateArray();
 function initiateArray(){
-
 	for(let i=0; i<numberOfColums; i++){
 		const randomNum =  Math.random()
 		arr[i] = randomNum;
@@ -30,8 +30,8 @@ function initiateArray(){
 };
 
 
+// Adjust the number of Columns.
 function addColumnsToArray(){
-	console.log('Loggin dail...', 'spacing:', spacing)
 	let text = document.getElementById('rangeValue');
 	let newNumberOfColums = document.getElementById('rangeNumber').value;
 	text.innerHTML = newNumberOfColums;
@@ -39,14 +39,13 @@ function addColumnsToArray(){
 	cols = [];
 	arr = [];
 	obj = [];
-	console.log(arr, cols, numberOfColums, spacing);
 	spacing = (mainCanvas.width - margin*2)/numberOfColums;
 	initiateArray();
-	// console.log(arr, cols, numberOfColums, spacing)
 }
 
 
-function paint(){//generateColumns
+// Generate Columns.
+function paint(){
 	operations = [];
 	for(let i=0; i<arr.length; i++){
 		const x = i*spacing+spacing/2 + margin;
@@ -58,6 +57,7 @@ function paint(){//generateColumns
 }
 
 
+//Algorithm selection
 const selectAgorithm = (arg, i) =>{
 	const array = [...arg];
 	const object = {
@@ -71,29 +71,33 @@ const selectAgorithm = (arg, i) =>{
 }
 
 
+// Algorithm selection event listener.
 selectedBtn.addEventListener('click', (e)=>{
 	if(e.target.nodeName === 'SPAN'){
 		paint();
 		chosenAlgorithm = e.target.id;
+		isOkayToRun = true;
 	}
 })
 
 
 // Run the Algorithm.
-function runAlgorithm(){//runAlgorithm
-	operations = [];
-	operations = selectAgorithm(arr, chosenAlgorithm)
-	requestAnimationFrame(animate);
+function runAlgorithm(){
+	// operations = []; // to pause or stop the animation when it's running
+	if(isOkayToRun){
+		paint();
+		operations = selectAgorithm(arr, chosenAlgorithm);
+		requestAnimationFrame(animate);
+	}
 }
 
 
-//linear interpolation
+//Linear interpolation.
 function linearInterpolate(a, b, t){
 	return a + (b - a) * t;
 }
 
 
-animate();
 function animate(){
 	let counter = 0;
 	ctx.clearRect(0,0, mainCanvas.width, mainCanvas.height);
@@ -113,7 +117,10 @@ function animate(){
 		}
 	}
 	if(operations.length > 0){
+		isOkayToRun = false;
 		requestAnimationFrame(animate);
+	}else{
+		isOkayToRun = true;
 	}
 }
 
