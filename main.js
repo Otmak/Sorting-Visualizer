@@ -1,8 +1,10 @@
 //By Otuma.
+
 mainCanvas.width = 900;
 mainCanvas.height = 400;
 const selectedBtn = document.getElementById('algorithms');
 let numberOfColumsValue = document.getElementById('rangeNumber').value;
+let framesPerSecondSelected = document.getElementById('seconds-selected');
 
 let numberOfColums = numberOfColumsValue;
 let arr = [];
@@ -15,6 +17,7 @@ const ctx = mainCanvas.getContext('2d');
 let operations = [];
 let chosenAlgorithm = '';
 let isOkayToRun = false;
+let framesPerSecond;
 
 
 // Create array of random numbers between 0 and 1.
@@ -78,6 +81,12 @@ selectedBtn.addEventListener('click', (e)=>{
 		chosenAlgorithm = e.target.id;
 		isOkayToRun = true;
 	}
+});
+
+
+// Change the animation speed.
+framesPerSecondSelected.addEventListener('change', (e)=>{
+	framesPerSecond = Number(e.srcElement.value);
 })
 
 
@@ -95,7 +104,7 @@ function runAlgorithm(){
 //Linear interpolation.
 function linearInterpolate(a, b, t){
 	return a + (b - a) * t;
-}
+};
 
 
 function animate(){
@@ -111,8 +120,8 @@ function animate(){
 		const action = operations.shift();
 		const [i,j] = action.index;
 		if( action.swap ){
-			cols[i].moveTo( cols[j] );
-			cols[j].moveTo( cols[i] );
+			framesPerSecond ? cols[i].moveTo( cols[j], framesPerSecond) : cols[i].moveTo( cols[j] );
+			framesPerSecond ? cols[j].moveTo( cols[i], framesPerSecond) : cols[j].moveTo( cols[i] );
 			[ cols[i], cols[j] ] = [ cols[j], cols[i] ]; //Swap
 		}
 	}
@@ -122,7 +131,7 @@ function animate(){
 	}else{
 		isOkayToRun = true;
 	}
-}
+};
 
 
 /*********** Sorting algorithms *************/
