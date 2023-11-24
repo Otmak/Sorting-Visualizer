@@ -1,7 +1,8 @@
 //By Otuma.
-
-mainCanvas.width = 900;
-mainCanvas.height = 400;
+const wMax = window.innerWidth; // Window width.
+let wSub = (wMax * 10)/100 // Get 10% of window width.
+mainCanvas.width = wMax - wSub; // Remove 10% from window width.
+mainCanvas.height = 500;
 const selectedBtn = document.getElementById('algorithms');
 let numberOfColumsValue = document.getElementById('rangeNumber').value;
 let framesPerSecondSelected = document.getElementById('seconds-selected');

@@ -10,4 +10,4 @@
 
 ### Click [ Here For The Live](https://otmak.github.io/Sorting-Visualizer/) application.
 
-All but the Merge, and Quick Sort algorithm have a ***O(1)*** memory complexity, so no additional memory is used, which means the algorithms swap the elements around, appropriately until the list of elements is sorted in ascending order.
+All but the Merge, and Quick Sort algorithm have a ***O(1)*** memory complexity, so no additional memory is used, which means the algorithms swap the elements around, appropriately until the list of elements is sorted in ascending order. And! you can adjust the frames per second even while the algorithm is running.
