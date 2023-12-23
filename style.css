@@ -21,6 +21,10 @@ h1{
 
 }
 
+.footer-notes{
+    display: inline;
+}
+
 /*INIT BUTTON*/
 .button {
   display: flex;
