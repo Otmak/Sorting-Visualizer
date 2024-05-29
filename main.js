@@ -197,7 +197,7 @@ function mergeSort(arg){
         let left = divide(array.slice(0, middle));
         let right = divide(array.slice(middle));
         let merged = merge(left, right);
-        console.log('Merged ====>', merged)
+        // console.log('Merged ====>', merged)
 
         return merged;
     };
@@ -206,17 +206,17 @@ function mergeSort(arg){
     function merge (array1, array2) {
         let merged = [];
         let i = 0, j = 0;
-        console.log('Original array', test)
-        console.log('Comparing', array1[i], array2[j] )
+        // console.log('Original array', test)
+        // console.log('Comparing', array1[i], array2[j] )
         while (i <array1.length && j <array2.length) {
             if (array1[i] < array2[j]){
-                console.log('left is less', array1[i])
+                // console.log('left is less', array1[i])
                 merged.push(array1[i]);
                 // actions.push({index:[ obj[ array1[i] ] , obj[ array2[j] ] ] ,swap:false})//test
                 actions.push({index:[ i, j ] ,swap:false})//test
                 i++;
             }else{
-                console.log('Not less need Swap', array2[i])
+                // console.log('Not less need Swap', array2[i])
                 // actions.push({index:[ obj[ array1[i] ] , obj[ array2[j] ] ] ,swap:true})// ..
                 actions.push({index:[ i, j ] ,swap:true})// ..
                 merged.push(array2[j]);
@@ -224,12 +224,12 @@ function mergeSort(arg){
             }
         };
         while (i <array1.length ){
-            console.log('leftover in array 1', array1[i])
+            // console.log('leftover in array 1', array1[i])
             merged.push(array1[i]);
             i++;
         };
         while (j <array2.length){
-            console.log('leftover in array 2',array2[j])
+            // console.log('leftover in array 2',array2[j])
             merged.push( array2[j] );
             j++;
         };
